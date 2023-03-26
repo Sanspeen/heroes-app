@@ -1,35 +1,41 @@
 <template>
-  <ul>
-    <li v-for="hero, index in heroes">
-      <v-card class="mx-auto" max-width="344">
-        <v-img
-          :src="hero.thumbnail.path + '.' + hero.thumbnail.extension"
-          height="200px"
-          cover
-        ></v-img>
+  <v-flex d-flex>
+    <v-layout wrap>
+      <v-flex v-for="(hero, index) in heroes">
+        <v-card class="mx-auto" max-width="344">
+          <v-img
+            :src="hero.thumbnail.path + '.' + hero.thumbnail.extension"
+            height="200px"
+            cover
+          ></v-img>
 
-        <v-card-title> {{ hero.name }} </v-card-title>
+          <v-card-title> {{ hero.name }} </v-card-title>
 
-        <v-card-actions>
-          <v-btn color="orange-lighten-2" variant="text"> Explore </v-btn>
+          <v-card-actions>
+            <v-btn color="orange-lighten-2" variant="text"> Explore </v-btn>
 
-          <v-spacer></v-spacer>
+            <v-spacer></v-spacer>
 
-          <v-btn @click="showDesc()" v-text="show ? '↓' : '→'"></v-btn>
-        </v-card-actions>
+            <v-btn @click="showDesc()" v-text="show ? '↓' : '→'"></v-btn>
+          </v-card-actions>
 
-        <v-expand-transition>
-          <div v-show="show">
-            <v-divider></v-divider>
+          <v-expand-transition>
+            <div v-show="show">
+              <v-divider></v-divider>
 
-            <v-card-text>
-              {{ hero.description != "" ? hero.description : "This hero is... ZzZzZzzzZzZZz." }}
-            </v-card-text>
-          </div>
-        </v-expand-transition>
-      </v-card>
-    </li>
-  </ul>
+              <v-card-text>
+                {{
+                  hero.description != ""
+                    ? hero.description
+                    : "This hero is... ZzZzZzzzZzZZz."
+                }}
+              </v-card-text>
+            </div>
+          </v-expand-transition>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-flex>
 </template>
 
 <script>
@@ -40,7 +46,7 @@ export default {
   },
   data: () => ({
     show: false,
-    heroes: []
+    heroes: [],
   }),
   methods: {
     showDesc() {
