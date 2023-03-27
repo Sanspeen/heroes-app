@@ -39,15 +39,15 @@
                 </v-dialog>
               </v-row>
             </template>
-            <v-btn @click="showDesc()" v-text="show ? '↓' : '→'"></v-btn>
+            <v-btn @click="hero.toggleShortDesc()" v-text="hero.shortDesc ? '↓' : '→'"></v-btn>
           </v-card-actions>
 
           <v-expand-transition>
-            <div v-show="show">
+            <div v-show="hero.shortDesc">
               <v-divider></v-divider>
               <v-card-text>
                 {{
-                  hero.description != ""
+                  hero.desc != ""
                     ? hero.desc
                     : "This hero is... ZzZzZzzzZzZZz."
                 }}
@@ -70,14 +70,10 @@ export default {
   },
   data: () => ({
     show: false,
-    dialog: false,
     baseHeroes: [],
     heroesFetched: [],
   }),
   methods: {
-    showDialog() {
-      this.dialog = !this.dialog;
-    },
     showDesc() {
       this.show = !this.show;
     },

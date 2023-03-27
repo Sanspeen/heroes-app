@@ -7,6 +7,7 @@ export class Hero {
   storiesAmount: number;
   eventsAmount: number;
   dialog: boolean = false;
+  shortDesc: boolean = false;
   constructor(
     name: string,
     image: string,
@@ -14,7 +15,7 @@ export class Hero {
     comicsAmount: number,
     seriesAmount: number,
     storiesAmount: number,
-    eventsAmount: number,
+    eventsAmount: number
   ) {
     this.name = name;
     this.image = image;
@@ -24,10 +25,14 @@ export class Hero {
     this.storiesAmount = storiesAmount;
     this.eventsAmount = eventsAmount;
   }
+
   toggleDialog = (): boolean => {
     this.dialog = !this.dialog;
-    console.log(this.dialog);
-    
-    return this.dialog
+    return this.dialog;
+  };
+  
+  toggleShortDesc = (): boolean => {
+    this.shortDesc = !this.shortDesc;
+    return this.shortDesc;
   };
 }
