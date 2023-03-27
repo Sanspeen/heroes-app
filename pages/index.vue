@@ -16,18 +16,22 @@
               <v-row justify="center">
                 <v-dialog v-model="dialog" width="800">
                   <template v-slot:activator="{ props }">
-                    <v-btn color="primary" v-bind="props" @click = "showDialog()"> Open </v-btn>
+                    <v-btn color="primary" v-bind="props" @click="showDialog()">
+                      Open
+                    </v-btn>
                   </template>
                   <v-card>
+                    <v-img
+                      :src="
+                        hero.thumbnail.path + '.' + hero.thumbnail.extension
+                      "
+                      height="200px"
+                      cover
+                    ></v-img>
                     <v-card-title>
-                      <span class="text-h5"
-                        >{{ hero.name }}</span
-                      >
+                      <span class="text-h5">{{ hero.name }}</span>
                     </v-card-title>
-                    <v-card-text>
-                      augue ligula orci ante asperiores ullamcorper. In sit per
-                      mi sed sed, mi vestibulum mus nam, morbi mauris neque
-                    </v-card-text>
+                    <v-card-text> `` </v-card-text>
                     <v-card-actions>
                       <v-btn
                         color="green-darken-1"
@@ -63,6 +67,8 @@
 </template>
 
 <script>
+import {Hero} from '../models/Hero';
+
 export default {
   name: "IndexPage",
   mounted: function () {
@@ -70,12 +76,14 @@ export default {
   },
   data: () => ({
     show: false,
-    heroes: [],
+    heroes: [
+      new Hero
+    ],
     dialog: false,
   }),
   methods: {
-    showDialog(){
-      this.dialog = !this.dialog
+    showDialog() {
+      this.dialog = !this.dialog;
     },
     showDesc() {
       this.show = !this.show;
@@ -84,7 +92,7 @@ export default {
       const data = await this.$axios.$get(
         "https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=a159b8cedeb821cb1eb1f1b0406129c1&hash=8204cad645161d8cf403bc8fa5318f1e"
       );
-      this.heroes = data.data.results;
+      this.heroes.concat(data.data.results);
     },
     getDataById() {},
   },
