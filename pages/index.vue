@@ -1,10 +1,10 @@
 <template>
   <v-flex d-flex>
     <v-layout wrap>
-      <v-flex v-for="(hero, index) in heroes">
+      <v-flex v-for="(hero, index) in baseHeroes">
         <v-card class="mx-auto mb-2" max-width="344">
           <v-img
-            :src="hero.thumbnail.path + '.' + hero.thumbnail.extension"
+            :src="hero.image"
             height="200px"
             cover
           ></v-img>
@@ -14,16 +14,16 @@
           <v-card-actions>
             <template>
               <v-row justify="center">
-                <v-dialog v-model="dialog" width="800">
+                <v-dialog v-model="hero.dialog" width="800">
                   <template v-slot:activator="{ props }">
-                    <v-btn color="primary" v-bind="props" @click="showDialog()">
+                    <v-btn color="primary" v-bind="props" @click="hero.toggleDialog()">
                       Open
                     </v-btn>
                   </template>
                   <v-card>
                     <v-img
                       :src="
-                        hero.thumbnail.path + '.' + hero.thumbnail.extension
+                        hero.image
                       "
                       height="200px"
                       cover
@@ -36,7 +36,7 @@
                       <v-btn
                         color="green-darken-1"
                         variant="text"
-                        @click="showDialog()"
+                        @click="hero.toggleDialog()"
                       >
                         close
                       </v-btn>
@@ -54,7 +54,7 @@
               <v-card-text>
                 {{
                   hero.description != ""
-                    ? hero.description
+                    ? hero.desc
                     : "This hero is... ZzZzZzzzZzZZz."
                 }}
               </v-card-text>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import {Hero} from '../models/Hero';
+import { Hero } from "../models/Hero";
 
 export default {
   name: "IndexPage",
@@ -76,10 +76,31 @@ export default {
   },
   data: () => ({
     show: false,
-    heroes: [
-      new Hero
-    ],
     dialog: false,
+    baseHeroes: [
+      new Hero(
+        "Santiago",
+        "https://i.ytimg.com/vi/4ppmoxk2HT4/maxresdefault.jpg",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+      ),
+      new Hero(
+        "Santiago",
+        "https://www.semana.com/resizer/04bbtHrt72X4cEU5lFmFWioUtpc=/1280x720/smart/filters:format(jpg):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/semana/PXWRN4NHSRF5HIJ6ORDEK6J3CU.jpg",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+        "Esto es",
+      ),
+    ],
+    heroesFetched: [],
+    
   }),
   methods: {
     showDialog() {
@@ -92,7 +113,8 @@ export default {
       const data = await this.$axios.$get(
         "https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=a159b8cedeb821cb1eb1f1b0406129c1&hash=8204cad645161d8cf403bc8fa5318f1e"
       );
-      this.heroes.concat(data.data.results);
+      this.heroesFetched = data.data.results;
+      this.heroesFetched = this.heroesFetched.concat(this.baseHeroes);
     },
     getDataById() {},
   },

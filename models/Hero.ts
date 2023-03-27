@@ -24,7 +24,10 @@ export class Hero {
     this.stories = stories;
     this.events = events;
   }
-  toggleDialog = (): void => {
+  toggleDialog = (): boolean => {
     this.dialog = !this.dialog;
+    console.log(this.dialog);
+    
+    return this.dialog
   };
 }
