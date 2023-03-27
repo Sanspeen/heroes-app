@@ -3,11 +3,7 @@
     <v-layout wrap>
       <v-flex v-for="(hero, index) in baseHeroes">
         <v-card class="mx-auto mb-2" max-width="344">
-          <v-img
-            :src="hero.image"
-            height="200px"
-            cover
-          ></v-img>
+          <v-img :src="hero.image" height="200px" cover></v-img>
 
           <v-card-title> {{ hero.name }} </v-card-title>
 
@@ -16,18 +12,16 @@
               <v-row justify="center">
                 <v-dialog v-model="hero.dialog" width="800">
                   <template v-slot:activator="{ props }">
-                    <v-btn color="primary" v-bind="props" @click="hero.toggleDialog()">
+                    <v-btn
+                      color="primary"
+                      v-bind="props"
+                      @click="hero.toggleDialog()"
+                    >
                       Open
                     </v-btn>
                   </template>
                   <v-card>
-                    <v-img
-                      :src="
-                        hero.image
-                      "
-                      height="200px"
-                      cover
-                    ></v-img>
+                    <v-img :src="hero.image" height="200px" cover></v-img>
                     <v-card-title>
                       <span class="text-h5">{{ hero.name }}</span>
                     </v-card-title>
@@ -86,7 +80,7 @@ export default {
         "Esto es",
         "Esto es",
         "Esto es",
-        "Esto es",
+        "Esto es"
       ),
       new Hero(
         "Santiago",
@@ -96,11 +90,10 @@ export default {
         "Esto es",
         "Esto es",
         "Esto es",
-        "Esto es",
+        "Esto es"
       ),
     ],
     heroesFetched: [],
-    
   }),
   methods: {
     showDialog() {
@@ -110,11 +103,15 @@ export default {
       this.show = !this.show;
     },
     async fetchHeroesData() {
-      const data = await this.$axios.$get(
-        "https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=a159b8cedeb821cb1eb1f1b0406129c1&hash=8204cad645161d8cf403bc8fa5318f1e"
-      );
-      this.heroesFetched = data.data.results;
-      this.heroesFetched = this.heroesFetched.concat(this.baseHeroes);
+      await this.$axios
+        .$get(
+          "https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=a159b8cedeb821cb1eb1f1b0406129c1&hash=8204cad645161d8cf403bc8fa5318f1e"
+        )
+        .then((data) => {
+          this.heroesFetched = data.data.results;
+          this.heroesFetched = this.heroesFetched.concat(this.baseHeroes);
+        })
+        .catch((err) => console.log(`An error has ocurred => ${err}`));
     },
     getDataById() {},
   },
