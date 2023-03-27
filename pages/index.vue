@@ -21,7 +21,7 @@
                     </v-btn>
                   </template>
                   <v-card>
-                    <v-img :src="hero.image" height="200px" cover></v-img>
+                    <v-img :src="hero.image" height="400px" cover></v-img>
                     <v-card-title>
                       <span class="text-h5">{{ hero.name }}</span>
                     </v-card-title>
@@ -71,28 +71,7 @@ export default {
   data: () => ({
     show: false,
     dialog: false,
-    baseHeroes: [
-      new Hero(
-        "Santiago",
-        "https://i.ytimg.com/vi/4ppmoxk2HT4/maxresdefault.jpg",
-        "Esto es",
-        "Esto es",
-        "Esto es",
-        "Esto es",
-        "Esto es",
-        "Esto es"
-      ),
-      new Hero(
-        "Santiago",
-        "https://www.semana.com/resizer/04bbtHrt72X4cEU5lFmFWioUtpc=/1280x720/smart/filters:format(jpg):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/semana/PXWRN4NHSRF5HIJ6ORDEK6J3CU.jpg",
-        "Esto es",
-        "Esto es",
-        "Esto es",
-        "Esto es",
-        "Esto es",
-        "Esto es"
-      ),
-    ],
+    baseHeroes: [],
     heroesFetched: [],
   }),
   methods: {
@@ -109,11 +88,23 @@ export default {
         )
         .then((data) => {
           this.heroesFetched = data.data.results;
-          this.heroesFetched = this.heroesFetched.concat(this.baseHeroes);
+          this.heroesFetched.forEach((hero) => {
+            const heroImage = `${hero.thumbnail.path}.${hero.thumbnail.extension}`;
+            this.baseHeroes.push(
+              new Hero(
+                hero.name,
+                heroImage,
+                hero.description,
+                hero.comics.available,
+                hero.series.available,
+                hero.stories.available,
+                hero.events.available
+              )
+            );
+          });
         })
         .catch((err) => console.log(`An error has ocurred => ${err}`));
     },
-    getDataById() {},
   },
 };
 </script>
