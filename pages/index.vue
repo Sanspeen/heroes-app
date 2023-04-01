@@ -25,16 +25,18 @@
                     <v-card-title>
                       <span class="text-h5">{{ hero.name }}</span>
                     </v-card-title>
-                    <v-card-text>
-                      {{
-                        hero.desc != ""
-                          ? hero.desc
-                          : "Now this hero doesn't have a description made by Marvel... Maybe later :("
-                      }}
-                    </v-card-text>
+
                     <ul>
-                      <li>hero.</li>
+                      <li>{{ hero.desc }}</li>
+                      <li>Comics: {{ hero.comicsAmount }}</li>
+                      <li>Series: {{ hero.seriesAmount }}</li>
+                      <li>Stories: {{ hero.storiesAmount }}</li>
+                      <li>Events: {{ hero.eventsAmount }}</li>
                     </ul>
+                    <ul>
+                      <li>Last series: {{ hero.lastThreeSeries }}</li>
+                    </ul>
+
                     <v-card-actions>
                       <v-btn
                         color="green-darken-1"
@@ -61,7 +63,7 @@
                 {{
                   hero.desc != ""
                     ? hero.desc
-                    : "This hero doesn't have any description :("
+                    : "This hero doesn't have short description :("
                 }}
               </v-card-text>
             </div>
@@ -106,7 +108,8 @@ export default {
                 hero.comics.available,
                 hero.series.available,
                 hero.stories.available,
-                hero.events.available
+                hero.events.available,
+                hero.series.items
               )
             );
           });

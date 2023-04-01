@@ -8,6 +8,8 @@ export class Hero {
   eventsAmount: number;
   dialog: boolean = false;
   shortDesc: boolean = false;
+  stories: Array<String> = [];
+  lastThreeSeries: Array<String>;
   constructor(
     name: string,
     image: string,
@@ -15,7 +17,8 @@ export class Hero {
     comicsAmount: number,
     seriesAmount: number,
     storiesAmount: number,
-    eventsAmount: number
+    eventsAmount: number,
+    series: Array<String>
   ) {
     this.name = name;
     this.image = image;
@@ -24,6 +27,8 @@ export class Hero {
     this.seriesAmount = seriesAmount;
     this.storiesAmount = storiesAmount;
     this.eventsAmount = eventsAmount;
+    this.stories = series;
+    this.lastThreeSeries = this.getLastThreeSeries();
   }
 
   toggleDialog = (): boolean => {
@@ -34,5 +39,17 @@ export class Hero {
   toggleShortDesc = (): boolean => {
     this.shortDesc = !this.shortDesc;
     return this.shortDesc;
+  };
+
+  getLastThreeSeries = (): Array<String> => {
+    let lastThreeSeries: Array<String> = [];
+    this.stories.forEach((value: any, index) => {
+      if (index < 3) {
+        lastThreeSeries.push(value.name);
+      } else {
+        return;
+      }
+    });
+    return lastThreeSeries;
   };
 }
