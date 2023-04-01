@@ -25,17 +25,30 @@
                     <v-card-title>
                       <span class="text-h5">{{ hero.name }}</span>
                     </v-card-title>
-
-                    <ul>
-                      <li>{{ hero.desc }}</li>
-                      <li>Comics: {{ hero.comicsAmount }}</li>
-                      <li>Series: {{ hero.seriesAmount }}</li>
-                      <li>Stories: {{ hero.storiesAmount }}</li>
-                      <li>Events: {{ hero.eventsAmount }}</li>
-                    </ul>
-                    <ul>
-                      <li>Last series: {{ hero.lastThreeSeries }}</li>
-                    </ul>
+                      <p class="pl-5">{{ hero.desc }}</p>
+                    <v-row no-gutters>
+                      <v-col cols="12" sm="4">
+                        <v-sheet class="ma-2 pa-2">
+                          <p>INFO</p>
+                          <ul>
+                            <li>Comics: {{ hero.comicsAmount }}</li>
+                            <li>Series: {{ hero.seriesAmount }}</li>
+                            <li>Stories: {{ hero.storiesAmount }}</li>
+                            <li>Events: {{ hero.eventsAmount }}</li>
+                          </ul>
+                        </v-sheet>
+                      </v-col>
+                      <v-col cols="12" sm="4">
+                        <v-sheet class="ma-2 pa-2">
+                          <p>SERIES</p>
+                          <ul>
+                            <li v-for="serie in hero.lastThreeSeries">
+                              {{ serie }}
+                            </li>
+                          </ul>
+                        </v-sheet>
+                      </v-col>
+                    </v-row>
 
                     <v-card-actions>
                       <v-btn
