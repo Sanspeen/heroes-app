@@ -25,7 +25,16 @@
                     <v-card-title>
                       <span class="text-h5">{{ hero.name }}</span>
                     </v-card-title>
-                    <v-card-text> `` </v-card-text>
+                    <v-card-text>
+                      {{
+                        hero.desc != ""
+                          ? hero.desc
+                          : "Now this hero doesn't have a description made by Marvel... Maybe later :("
+                      }}
+                    </v-card-text>
+                    <ul>
+                      <li>hero.</li>
+                    </ul>
                     <v-card-actions>
                       <v-btn
                         color="green-darken-1"
@@ -39,7 +48,10 @@
                 </v-dialog>
               </v-row>
             </template>
-            <v-btn @click="hero.toggleShortDesc()" v-text="hero.shortDesc ? '↓' : '→'"></v-btn>
+            <v-btn
+              @click="hero.toggleShortDesc()"
+              v-text="hero.shortDesc ? '↓' : '→'"
+            ></v-btn>
           </v-card-actions>
 
           <v-expand-transition>
@@ -49,7 +61,7 @@
                 {{
                   hero.desc != ""
                     ? hero.desc
-                    : "This hero is... ZzZzZzzzZzZZz."
+                    : "This hero doesn't have any description :("
                 }}
               </v-card-text>
             </div>

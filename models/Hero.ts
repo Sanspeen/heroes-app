@@ -30,7 +30,7 @@ export class Hero {
     this.dialog = !this.dialog;
     return this.dialog;
   };
-  
+
   toggleShortDesc = (): boolean => {
     this.shortDesc = !this.shortDesc;
     return this.shortDesc;
